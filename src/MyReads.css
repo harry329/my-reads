@@ -1,0 +1,27 @@
+.header {
+    background-color: darkgreen;
+    height: 10vh;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+
+.shelf-list {
+    display: flex;
+    flex-direction: row;
+    flex-flow: row;
+    flex-wrap: wrap;
+}
+
+.shelf-list-item {
+    padding: 10px;
+    margin: 10px;
+}
+
+.shelf-list-img {
+    width: 50px;
+    height: 50px;
+}
