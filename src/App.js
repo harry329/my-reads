@@ -5,12 +5,25 @@ import Shelf from "./Shelf";
 
 class App extends Component {
     state = {
-        books: []
+        books: [],
+        update: false
     }
     
   async componentDidMount() {
       this.updatedbooks =  await BooksAPI.getAll();
+      console.log(" component did mount")
       this.setState({books: this.updatedbooks})
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+        console.log(" I did update")
+  }
+
+    updateBook = (book) => {
+        console.log("I am getting updated")
+        console.log(book)
+        BooksAPI.update(book, book.shelf)
+        this.setState({update : true})
   }
 
   getAllBookList() {
@@ -24,14 +37,14 @@ class App extends Component {
         console.log("I am coming from render")
         console.log(reading)
         return(
-            <a>
-              <a className="header">
+            <div>
+              <div className="header">
                 MyReads
-              </a>
-              <Shelf heading = "Currently Reading" bookList = {reading}> </Shelf>
-              <Shelf heading = "Read" bookList = {read}> </Shelf>
-              <Shelf heading = "Want To Read" bookList = {wantToRead}> </Shelf>
-            </a>
+              </div>
+              <Shelf heading = "Currently Reading" bookList = {reading} updateBook = {this.updateBook}> </Shelf>
+              <Shelf heading = "Read" bookList = {read} updateBook = {this.updateBook}> </Shelf>
+              <Shelf heading = "Want To Read" bookList = {wantToRead} updateBook = {this.updateBook}> </Shelf>
+            </div>
         )
   }
 
