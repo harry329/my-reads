@@ -2,6 +2,9 @@ import React, {Component} from 'react';
 import './MyReads.css';
 import * as BooksAPI from './BooksAPI'
 import Shelf from "./Shelf";
+import {Link} from "react-router-dom";
+import {Route} from 'react-router-dom';
+import Search from "./Search";
 
 class App extends Component {
     state = {
@@ -38,12 +41,18 @@ class App extends Component {
         console.log(reading)
         return(
             <div>
-              <div className="header">
-                MyReads
-              </div>
-              <Shelf heading = "Currently Reading" bookList = {reading} updateBook = {this.updateBook}> </Shelf>
-              <Shelf heading = "Read" bookList = {read} updateBook = {this.updateBook}> </Shelf>
-              <Shelf heading = "Want To Read" bookList = {wantToRead} updateBook = {this.updateBook}> </Shelf>
+              <Route exact path = '/' render={() => (
+                  <div>
+                      <div className = "header">
+                      MyReads
+                      </div>
+                      <Shelf heading = "Currently Reading" bookList = {reading} updateBook = {this.updateBook}> </Shelf>
+                      <Shelf heading = "Read" bookList = {read} updateBook = {this.updateBook}> </Shelf>
+                      <Shelf heading = "Want To Read" bookList = {wantToRead} updateBook = {this.updateBook}> </Shelf>
+                      <button className = "search-box"><Link to="/search">Search Books</Link></button>
+                  </div>
+              )}/>
+                <Route exact path ='/search' component = {Search}/>
             </div>
         )
   }
