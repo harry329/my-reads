@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import * as BookApi from './BooksAPI'
 import Shelf from "./Shelf";
+import {Link} from "react-router-dom";
 
 export default class Search extends Component{
 
@@ -42,7 +43,7 @@ export default class Search extends Component{
         console.log(this.props.books)
         return(
             <div>
-                <button>Back</button>
+                <button> <Link to="/"> Back </Link></button>
                 <input value={this.state.text} type='text' placeholder='Search books' onChange={(event) => this.searchBook(event.target.value)}/>
                 { this.getBooksLength() !== 0 && <Shelf heading = "Search books" bookList = {this.getBooks()}> </Shelf>}
             </div>
