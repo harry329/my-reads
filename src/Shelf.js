@@ -31,11 +31,13 @@ export default class Shelf extends Component {
     render() {
         console.log("I am coming from shelf")
         console.log(this.props.bookList)
+        if(this.props !== undefined && this.props.bookList !== undefined && Array.isArray(this.props.bookList)) {
         return(
+
             <div>
                 <div>{this.props.heading}</div>
                 <ol className="shelf-list">
-                    {this.props.bookList.map((book) => (<li key={ book.title} className="shelf-list-item">
+                    {this.props.bookList.map((book) => (book.imageLinks.smallThumbnail!== undefined && <li key={ book.title} className="shelf-list-item">
                         <img src={book.imageLinks.smallThumbnail} className="shelf-list-img" alt="books cover"></img>
                         {book.title}
                         <button onClick={() => this.buttonClicked(book.title)}> clickMe </button>
@@ -56,6 +58,10 @@ export default class Shelf extends Component {
                 </ol>
                 
             </div>
-        )
+        )} else {
+            return (
+                <div> Nothing found for your search</div>
+            )
+        }
     }
 }

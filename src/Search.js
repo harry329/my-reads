@@ -5,7 +5,6 @@ import {Link} from "react-router-dom";
 
 export default class Search extends Component{
 
-
     constructor(props) {
         super(props)
         this.state = {text : '',books : []}
@@ -21,8 +20,12 @@ export default class Search extends Component{
     }
 
     async componentDidUpdate(prevProps, prevState, snapshot) {
-        let books = await BookApi.search(this.state.text)
-        this.searched_books.books = books
+        if( this.state.text !== '') {
+            let books = await BookApi.search(this.state.text)
+            this.searched_books.books = books
+        } else {
+            this.searched_books.books = []
+        }
         console.log(this.searched_books.books)
     }
 
