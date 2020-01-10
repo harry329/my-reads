@@ -14,6 +14,25 @@ export default class Search extends Component{
 
      searchBook = async (value) => {
         console.log(value)
+         if(value !== undefined && value !== '') {
+             let books = await BookApi.search(value)
+             console.log("books")
+             console.log(books)
+             if( Array.isArray(books)) {
+                 for (const book of books) {
+                     for (const readBooks of this.props.shelfedBooks) {
+                         if (readBooks.title === book.title) {
+                             book.shelf = readBooks.shelf
+                             break;
+                         }
+                     }
+                 }
+                 this.searched_books.books = books
+             }
+         } else {
+             this.searched_books.books = []
+         }
+         console.log(this.searched_books)
         this.setState(
             {text : value}
         )
@@ -33,18 +52,18 @@ export default class Search extends Component{
 
     async submitSearch (e)  {
         e.preventDefault()
-        let books = await BookApi.search(this.state.text)
-        for( const book of books) {
-            for(const readBooks of this.props.shelfedBooks) {
-                if(readBooks.title === book.title) {
-                    book.shelf = readBooks.shelf
-                    break;
-                }
-            }
-        }
-        this.searched_books.books = books
-        this.setState({update: true})
-        console.log(this.searched_books)
+        // let books = await BookApi.search(this.state.text)
+        // for( const book of books) {
+        //     for(const readBooks of this.props.shelfedBooks) {
+        //         if(readBooks.title === book.title) {
+        //             book.shelf = readBooks.shelf
+        //             break;
+        //         }
+        //     }
+        // }
+        // this.searched_books.books = books
+        // this.setState({update: true})
+        // console.log(this.searched_books)
     }
 
     render() {
