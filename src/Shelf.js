@@ -45,10 +45,10 @@ export default class Shelf extends Component {
                             <label>
                                 Status of your book:
                                 <select value={book.shelf} onChange={(e) => this.bookShelfChanged(book, e)}>
+                                    <option>None</option>
                                     <option value = "currentlyReading">Currently Reading</option>
                                     <option value = "read">Read</option>
                                     <option value = "wantToRead">Want To Read</option>
-                                    <option>None</option>
 
                                 </select>
                             </label>

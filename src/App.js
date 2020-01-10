@@ -52,7 +52,9 @@ class App extends Component {
                       <button className = "search-box"><Link to="/search">Search Books</Link></button>
                   </div>
               )}/>
-                <Route exact path ='/search' component = {Search}/>
+                <Route exact path ='/search' render = {() => (
+                    <Search shelfedBooks = {this.state.books}></Search>
+                )}/>
             </div>
         )
   }
