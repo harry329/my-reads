@@ -18,20 +18,26 @@ export default class Search extends Component {
             {text: value}
         )
         if (value !== undefined && value !== '') {
-            let books = await BookApi.search(value)
-            console.log("books")
-            console.log(books)
-            if (Array.isArray(books)) {
-                for (const book of books) {
-                    for (const readBooks of this.props.shelfedBooks) {
-                        if (readBooks.title === book.title) {
-                            book.shelf = readBooks.shelf
-                            break;
+             BookApi.search(value).then((books) => {
+                console.log("books")
+                console.log(books)
+                if (Array.isArray(books) && this.state.text === value) {
+                    for (const book of books) {
+                        for (const readBooks of this.props.shelfedBooks) {
+                            if (readBooks.title === book.title) {
+                                book.shelf = readBooks.shelf
+                                break;
+                            }
                         }
                     }
+                    this.searched_books.books = books
+                } else {
+                    this.searched_books.books = []
                 }
-                this.searched_books.books = books
-            }
+                 this.setState(
+                     {update: true}
+                 )
+            })
         } else {
             this.searched_books.books = []
         }
